@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders homepage unchanged 1`] = `
+<div>
+  <div
+    class="flex items-center"
+  >
+    <img
+      alt="jj"
+      class="w-12 h-12 rounded-full mr-4"
+      data-nimg="1"
+      decoding="async"
+      height="12"
+      loading="lazy"
+      src="/_next/image?url=%2Fpublic%2Fassets%2Fblog%2Fauthors%2Fjj.jpeg&w=32&q=75"
+      srcset="/_next/image?url=%2Fpublic%2Fassets%2Fblog%2Fauthors%2Fjj.jpeg&w=16&q=75 1x, /_next/image?url=%2Fpublic%2Fassets%2Fblog%2Fauthors%2Fjj.jpeg&w=32&q=75 2x"
+      style="color: transparent;"
+      width="12"
+    />
+    <div
+      class="text-xl font-bold"
+    >
+      jj
+    </div>
+  </div>
+</div>
+`;
