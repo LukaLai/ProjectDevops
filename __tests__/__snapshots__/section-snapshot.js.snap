@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`renders homepage unchanged 1`] = `
-<div>
-  <hr
-    class="border-neutral-200 mt-28 mb-24"
-  />
-</div>
-`;
