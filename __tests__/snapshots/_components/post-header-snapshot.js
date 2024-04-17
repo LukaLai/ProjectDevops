@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react'
-import { PostHeader } from '../../src/app/_components/post-header'
+import { PostHeader } from '../../../src/app/_components/post-header'
 
 it('renders homepage unchanged', () => {
     const author = {
