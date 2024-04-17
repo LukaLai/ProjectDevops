@@ -17,7 +17,9 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
+  children,
 }: Readonly<{
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
@@ -55,6 +57,7 @@ export default function RootLayout({
         <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
       </head>
       <body className={inter.className}>
+        <div className="min-h-screen">{children}</div>
         <Analytics/>
         <SpeedInsights/>
         <Footer />
