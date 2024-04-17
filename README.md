@@ -1,63 +1,114 @@
-# A statically generated blog example using Next.js, Markdown, and TypeScript
+# Projet DevOps
 
-This is the existing [blog-starter](https://github.com/vercel/next.js/tree/canary/examples/blog-starter) plus TypeScript.
+## Description du projet
 
-This example showcases Next.js's [Static Generation](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts) feature using Markdown files as the data source.
+Ceci est un projet de DevOps mis en place et maintenu par Luka LAI et Sébastien LAMARD.
+L'objectif est notamment d'étudier la mise en place d'une intégration et d'un déploiement continu.
+Dans ce but, nous avons opté pour le faire de clôner une simple template Next.js, afin de pouvoir la déployer aisément sur Vercel.
 
-The blog posts are stored in `/_posts` as Markdown files with front matter support. Adding a new Markdown file in there will create a new blog post.
+Il s'agit d'onc d'une app essentiellement Front-End utilisant le framework Next.js, et déployée statiquement grâce à Vercel sur l'URL suivant :
+https://project-devops.vercel.app
+Le projet est hébergé sur le compte Vercel de Luka.
 
-To create the blog posts we use [`remark`](https://github.com/remarkjs/remark) and [`remark-html`](https://github.com/remarkjs/remark-html) to convert the Markdown files into an HTML string, and then send it down as a prop to the page. The metadata of every post is handled by [`gray-matter`](https://github.com/jonschlinkert/gray-matter) and also sent in props to the page.
+## Workflow
 
-## Demo
+### Github
 
-[https://next-blog-starter.vercel.app/](https://next-blog-starter.vercel.app/)
+Afin de garder de nos travaux et mieux nous organiser, nous utilisons des Issues, sur Github, en guise de TO-DO List.
+Pour chaque issue traiter, une à plusieurs Pull Requests peuvent être ouvertes.
+Chaque Pull Request contient dans sa description une mention de l'Issue à laquelle elle fait référence afin d'améliorer la traçabilité.
+Lors du merge d'une Pull Request, les commits sont stashed, de manière à garder un arbre propre.
 
-## Deploy your own
+Les tags et releases sont gérés depuis Github également.
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/blog-starter)
+Nous avons fait le choix de ne pas utiliser de Milestone, ceci étant un projet relativement minime et n'ayant pas de réelle limite de temps pour chaque MEP et fonctionnalité.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/blog-starter&project-name=blog-starter&repository-name=blog-starter)
+### Branches
 
-### Related examples
+Chaque nom de branche commence par un 'type', faisant partie de la liste des types de commits donnés par commitizen, à savoir :
+- fix: correctif apporté suite à un bug
+- feat: nouvelle fonctionnalité
+- docs: documentation
+- style: changements concernant les normes de code, sans affecter son fonctionnement
+- refactor: tout changement qui n'est ni un correctif, ni une nouvelle fonctionnalité
+- perf: optimisation
+- test: rédaction de tests
+- build: changement dans le build de l'application ou dans ses dépendances
+- ci: changements dans l'intégration continue
 
-- [WordPress](/examples/cms-wordpress)
-- [DatoCMS](/examples/cms-datocms)
-- [Sanity](/examples/cms-sanity)
-- [TakeShape](/examples/cms-takeshape)
-- [Prismic](/examples/cms-prismic)
-- [Contentful](/examples/cms-contentful)
-- [Strapi](/examples/cms-strapi)
-- [Agility CMS](/examples/cms-agilitycms)
-- [Cosmic](/examples/cms-cosmic)
-- [ButterCMS](/examples/cms-buttercms)
-- [Storyblok](/examples/cms-storyblok)
-- [GraphCMS](/examples/cms-graphcms)
-- [Kontent](/examples/cms-kontent)
-- [Umbraco Heartcore](/examples/cms-umbraco-heartcore)
-- [Builder.io](/examples/cms-builder-io)
-- [TinaCMS](/examples/cms-tina/)
-- [Enterspeed](/examples/cms-enterspeed)
+Ce préfixe est suivi d'un `/`, suivi par le scope concerné par les changements ou, de manière plus générale, par ce que les changements sont supposés effectuer.
+Par exemple, pour une nouvelle feature sur le monitoring vercel, nous aurons quelque chose comme `feat/vercel-monitoring`.
 
-## How to use
+Cela permet de mieux se repérer et de connaître directement l'objectif d'une branche, et par extension celui de sa Pull Request.
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+Chaque branche est créée directement depuis la branche main, et sera directement fusionnée dessus une fois la Pull Request validée.
+Ceci étant un projet d'envergure minime, nous avons pris le parti de garder un workflow simple, afin de faciliter le développement.
 
-```bash
-npx create-next-app --example blog-starter blog-starter-app
+### Commits
+
+Chaque commit respecte les conventions de commitizen.
+Ils commencent tous par le type de changements apportés, parmis les types énumérés précédemment.
+Suite à ce prefixe vient la scope, entre parenthèses, qui constitue, entre autres, les fichiers impactés, suivi de deux points.
+Enfin vient le titre du commit, décrivant rapidement les changements apportés.
+
+Si besoin, une description plus poussée est donnée, pour décrire plus en détail la raison du commit et les changements apportés.
+Dans tous les cas, la dernière chose que contient la description du commit est le numéro de l'issue concernée, précédé par un `#`.
+
+## CI/CD
+
+L'intégration et le déploiement continus (CI/CD) constitue une partie importante du projet et des changements effectués.
+Nous comptons actuellement 3 jobs différents dans le dossier .github/workflows, chacun contenu dans un fichier yml différent, lançant une action Github différente:
+- lint.yml prend en charge le linter, eslint, en utilisant le script `npm lint`. Il est chargé de vérifier la bonne tenue du code de l'application. Il est lancé à chaque push sur une Pull Request ou sur la branche main.
+- test.yml prend en charge les tests, gérés par jest et contenus dans le répertoire `__tests__`. Chaque test est arrangé selon l'arborescence du dossier `src/app`. Il est lancé à chaque push sur une Pull Request ou sur la branche main.
+- vercel.yml prend en charge le déploiement de l'application du Vercel. Cette action est lancée uniquement lors d'un push ou d'un merge sur la branche main.
+
+Le déploiement sur Vercel nécessite trois valeurs secrètes, qu'il serait risqué de révéler.
+Afin de permettre à Github de réussir le déploiement sans rédiger ces valeurs en dur dans le répertoire, nous utilisons les secrets d'environnement Github.
+On compte parmis ces variables secrètes :
+- VERCEL_ORG_ID: L'ID Vercel du compte gestionnaire du projet.
+- VERCEL_PROJECT_ID: L'ID Vercel du projet
+- VERCEL_TOKEN: Un token mis en place par le gestionnaire de projet depuis son compte Vercel.
+
+
+
+## Monitoring 
+
+### Web Analytics Vercel
+Après avoir publié notre site à l'aide de vercel, il est possible d'obtenir des informations détaillées sur les visites du site web.
+Vercel analystics permet de fournir des informations sur les pages visitées, le nombre de visiteurs, les navigateurs, la localisation des visiteurs...
+
+Vercel met a disposition des dashboards avec toutes les informations concernant les statistiques de notre site.
+Ces fonctions sont disponibles avec la version gratuite de vercel, d'avantages de dashboards sont disponible avec un compte pro.
+
+Afin d'intégrer cela au projet, il suffit d'importer le package vercel associé à cette fonctionnalité.
+ 
+```
+npm i @vercel/analytics
 ```
 
-```bash
-yarn create next-app --example blog-starter blog-starter-app
+Une fois le package téléchargé sur notre projet, il suffit de l'importer dans notre site (Layout.tsx dans notre cas)
+
+Intégration dans notre projet: 
+
+https://github.com/LukaLai/ProjectDevops/pull/17
+
+![alt text](./docs/img/image-2.png)
+![alt text](./docs/img/image-1.png)
+
+#### Speed Insights Vercel
+
+Toujours dans le monitoring de notre site, il est possible d'avoir egalement des statistiques de vitesse d'execution et de chargement de notre site disponible directement a partir de vercel.
+De la meme facon, il suffit d'installer le package associé avec 
 ```
-
-```bash
-pnpm create next-app --example blog-starter blog-starter-app
+npm i @vercel/speed-insights
 ```
+Ensuite l'integrer dans notre projet
+https://github.com/LukaLai/ProjectDevops/pull/20
 
-Your blog should be up and running on [http://localhost:3000](http://localhost:3000)! If it doesn't work, post on [GitHub discussions](https://github.com/vercel/next.js/discussions).
+![alt text](./docs/img/image.png)
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+#### Grafana
 
-# Notes
-
-`blog-starter` uses [Tailwind CSS](https://tailwindcss.com) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3).
+Grafana est un outil open source de monitoring flexible qui permet de se connecter à des technos différente. 
+Le framework analytics de vercel permet une intégration native, ce qui simplifie le processus de configuration et de visualisation des données.
+Sans utiliser Grafana dans notre projet, l'outil semble beaucoup plus complet en termes d'informations et de tableaux de bord.
