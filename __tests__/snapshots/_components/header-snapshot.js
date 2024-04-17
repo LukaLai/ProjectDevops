@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
-import Footer from '../../src/app/_components/footer'
+import Header from '../../../src/app/_components/header'
 
 it('renders homepage unchanged', () => {
-    const { container } = render(<Footer />)
+    const { container } = render(<Header />)
     expect(container).toMatchSnapshot()
 })

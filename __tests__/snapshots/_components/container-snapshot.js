@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
-import { Intro } from '../../src/app/_components/intro'
+import Container from '../../../src/app/_components/container'
 
 it('renders homepage unchanged', () => {
-    const { container } = render(<Intro />)
+    const { container } = render(<Container />)
     expect(container).toMatchSnapshot()
 })

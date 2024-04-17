@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react'
-import { HeroPost } from '../../src/app/_components/hero-post'
+import { HeroPost } from '../../../src/app/_components/hero-post'
 
 it('renders homepage unchanged', () => {
     const author = {

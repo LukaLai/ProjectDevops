@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
-import { PostTitle } from '../../src/app/_components/post-title'
+import { Intro } from '../../../src/app/_components/intro'
 
 it('renders homepage unchanged', () => {
-    const { container } = render(<PostTitle />)
+    const { container } = render(<Intro />)
     expect(container).toMatchSnapshot()
 })

@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
-import { PostPreview } from '../../src/app/_components/post-preview'
-import { Author } from '../../src/interfaces/author'
+import { PostPreview } from '../../../src/app/_components/post-preview'
+import { Author } from '../../../src/interfaces/author'
 
 it('renders homepage unchanged', () => {
     const author = {
